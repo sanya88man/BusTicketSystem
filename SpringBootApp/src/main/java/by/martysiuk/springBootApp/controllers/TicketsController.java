@@ -61,7 +61,6 @@ public class TicketsController {
         return "user/show-rout";
     }
 
-    //FIX ME
     @GetMapping("/user/{id}/{date}")
     String showSeats(@PathVariable(value = "date") String date,
                      @PathVariable(value = "id") int id, Model model) {

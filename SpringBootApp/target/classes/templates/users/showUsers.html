@@ -55,7 +55,7 @@
   </br>
 
   <div>
-    <form th:action="@{/admin/delete-user}" th:method="post" th:object="${user1}" >
+    <form th:action="@{/admin/users/delete}" th:method="post" th:object="${user1}" >
       <div class="m-3">
         <div class="form-group row">
           <label class="col-4 col-form-label">Введите имя пользователя для удаления:</label>
@@ -71,7 +71,7 @@
   </br>
 
   <div>
-    <form th:action="@{/admin/add-admin}" th:method="post" th:object="${user1}" >
+    <form th:action="@{/admin/users/newAdmin}" th:method="post" th:object="${user1}" >
       <div class="m-3">
         <div class="form-group row">
           <label class="col-4 col-form-label">Назначить администратором пользователя:</label>

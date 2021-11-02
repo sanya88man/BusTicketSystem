@@ -26,48 +26,48 @@ public class UsersController {
 
     @GetMapping("/403")
     public String err403() {
-        return "enter/403";
+        return "users/403";
     }
 
-    @GetMapping("/register")
-    public String showRegistrationForm(@ModelAttribute("user") User user) {
-        return "enter/signup_form";
+    @GetMapping("/users/new")
+    public String newUser(@ModelAttribute("user") User user) {
+        return "users/newUser";
     }
 
-    @PostMapping("/process_register")
-    public String processRegister(@ModelAttribute("user") User user) {
+    @PostMapping("/users/processRegister")
+    public String createUser(@ModelAttribute("user") User user) {
 
         if (userDao.findByUserName(user.getUsername()) != null) {
-            return "enter/erraddinguser";
+            return "users/errAddUser";
         }
 
         userDao.saveUser(user);
-        return "enter/register_success";
+        return "users/registerSuccess";
     }
 
     @GetMapping("/admin/users")
-    public String listUsers(Model model, @ModelAttribute("user1") User user) {
+    public String showUsers(Model model, @ModelAttribute("user1") User user) {
         List<User> listUsers = userDao.findAll();
         model.addAttribute("listUsers", listUsers);
-        return "admin/users";
+        return "users/showUsers";
     }
 
-    @PostMapping("/admin/delete-user")
+    @PostMapping("/admin/users/delete")
     public String deleteUser(@ModelAttribute("user1") User user) {
 
         if (userDao.findByUserName(user.getUsername()) == null) {
-            return "admin/user_notexist";
+            return "users/userNotExist";
         }
 
         userDao.deleteUser(user.getUsername());
         return "redirect:/admin/users";
     }
 
-    @PostMapping("admin/add-admin")
+    @PostMapping("admin/users/newAdmin")
     public String addAdmin(@ModelAttribute("user1") User user) {
 
         if (userDao.findByUserName(user.getUsername()) == null) {
-            return "admin/user_notexist";
+            return "users/userNotExist";
         }
 
         userDao.addAdmin(user.getUsername());

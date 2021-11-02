@@ -1,0 +1,3 @@
+cd C:\Users\Don Martysiuk\IdeaProjects\spring-boot-app\SpringBootApp\target
+
+java -jar SpringBootApp-1.0-SNAPSHOT.jar

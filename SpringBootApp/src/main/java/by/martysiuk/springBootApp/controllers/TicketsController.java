@@ -81,10 +81,10 @@ public class TicketsController {
         List<Ticket> tickets = ticketDao.showSeats(date, id);
         Rout rout = ticketDao.getRout(id);
 
-        for (int i = 0; i < ticketList.size(); i++) {
-            for (Ticket ticket : tickets) {
-                if (ticketList.get(i).getSeat() == ticket.getSeat()) {
-                    ticketList.get(i).setSeat(-1);
+        for (Ticket ticket1 : ticketList) {
+            for (Ticket ticket2 : tickets) {
+                if (ticket1.getSeat() == ticket2.getSeat()) {
+                    ticket1.setSeat(-1);
                 }
             }
         }

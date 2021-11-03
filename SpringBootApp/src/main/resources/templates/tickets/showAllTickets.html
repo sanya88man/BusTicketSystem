@@ -78,7 +78,7 @@
                 <td th:text="${ticket.getUsername()}"></td>
                 <td>
                     <form th:action="@{/admin/tickets/delete}"
-                          th:method="post"
+                          th:method="delete"
                           th:object="${ticket}">
                         <input type="hidden" name="id" th:value="${ticket.getId()}"/>
                         <button type="submit" class="btn btn-primary" th:text="Удалить"></button>

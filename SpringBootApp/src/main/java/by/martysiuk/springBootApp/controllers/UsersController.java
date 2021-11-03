@@ -51,7 +51,7 @@ public class UsersController {
         return "users/showUsers";
     }
 
-    @PostMapping("/admin/users/delete")
+    @DeleteMapping("/admin/users/delete")
     public String deleteUser(@ModelAttribute("user1") User user) {
         if (userDao.showUserByUsername(user.getUsername()) == null) {
             return "users/userNotExist";

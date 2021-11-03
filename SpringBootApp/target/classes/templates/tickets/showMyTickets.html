@@ -21,18 +21,18 @@
           <img src="../../images/logo1.png" height="40" width="40">
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/show-routs">Главная <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="/routs">Главная <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Меню
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="/show-routs">Заказать билет</a>
-            <a class="dropdown-item" href="/user/my-tickets">Мои билеты</a>
+            <a class="dropdown-item" href="/routs">Заказать билет</a>
+            <a class="dropdown-item" href="/user/tickets/showMyTickets">Мои билеты</a>
             <div class="dropdown-divider"></div>
             <div sec:authorize="hasRole('ADMIN')">
-              <a class="dropdown-item" href="/admin/all-orders">Просмотреть все билеты</a>
+              <a class="dropdown-item" href="/admin/tickets">Просмотреть все билеты</a>
               <a class="dropdown-item" href="/admin/users">Управление пользователями</a>
             </div>
           </div>
@@ -48,11 +48,10 @@
   </nav>
 </div>
 
-
 <div class="container text-center" style="margin-top: 40px">
 
   <div>
-    <h2 style="color: lightslategray">Маршрут</h2>
+    <h2 style="color: lightslategray">Мои Билеты</h2>
   </div>
   </br>
 
@@ -60,42 +59,33 @@
     <table class="table table-striped table-bordered">
       <thead class="thead-dark">
       <tr>
-        <th>Название</th>
+        <th>Маршрут</th>
+        <th>Дата</th>
+        <th>Номер Места</th>
         <th>Цена(BYN)</th>
+        <th>Возврат</th>
       </tr>
       </thead>
       <tbody>
-      <tr>
-        <td th:text="${rout.getName()}">name</td>
-        <td th:text="${rout.getPrice()}">price</td>
+      <tr th:each="ticket:${tickets}">
+        <td th:text="${ticket.getRout().getName()}"></td>
+        <td th:text="${ticket.getDate()}"></td>
+        <td th:text="${ticket.getSeat()}"></td>
+        <td th:text="${ticket.getRout().getPrice()}"></td>
+        <td>
+          <form th:action="@{/user/tickets/delete}"
+                th:method="post"
+                th:object="${ticket}">
+            <input type="hidden" name="id" th:value="${ticket.getId()}"/>
+            <button type="submit" class="btn btn-primary" th:text="Вернуть"></button>
+          </form>
+        </td>
       </tr>
       </tbody>
     </table>
   </div>
   </br>
 
-</div>
-
-
-<div class="container text-center">
-  <div>
-    <h2 style="color: lightslategray; margin-left: auto; margin-right: auto">Выберите дату отправления:</h2>
-  </div>
-  </br>
-
-  <div class="list-group" style="width: 250px; margin-left: auto; margin-right: auto">
-    <a th:text="${s1}"
-       th:href="@{/user/{id}/{date}(id=${rout.getId()},date=${s1})}"
-       href="#" class="list-group-item list-group-item-action">1</a>
-
-    <a th:text="${s2}"
-       th:href="@{/user/{id}/{date}(id=${rout.getId()},date=${s2})}"
-       href="#" class="list-group-item list-group-item-action">2</a>
-
-    <a th:text="${s3}"
-       th:href="@{/user/{id}/{date}(id=${rout.getId()},date=${s3})}"
-       href="#" class="list-group-item list-group-item-action">3</a>
-  </div>
 </div>
 
 </body>

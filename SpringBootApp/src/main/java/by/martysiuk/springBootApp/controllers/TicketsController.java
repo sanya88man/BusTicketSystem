@@ -24,7 +24,6 @@ public class TicketsController {
     @GetMapping("/user/tickets/{id}/{date}")
     String showSeats(@PathVariable(value = "date") String date,
                      @PathVariable(value = "id") int id, Model model) {
-
         List<Ticket> ticketList = new ArrayList<>();
 
         final int SEATS_AMOUNT = 20;
@@ -68,7 +67,6 @@ public class TicketsController {
     @PostMapping("/user/tickets/new")
     String addTicket(@ModelAttribute("ticket") Ticket ticket, Model model,
                      HttpServletRequest httpServletRequest) {
-
         Rout rout = ticketDao.showRout(ticket.getRout_id());
         model.addAttribute("rout", rout);
 
@@ -96,7 +94,7 @@ public class TicketsController {
     @PostMapping("/admin/tickets/delete")
     String deleteTicket(@ModelAttribute("ticket") Ticket ticket) {
         ticketDao.deleteTicket(ticket.getId());
-        return "redirect:/admin/tickets/showAllTickets";
+        return "redirect:/admin/tickets";
     }
 
     @PostMapping("/user/tickets/delete")

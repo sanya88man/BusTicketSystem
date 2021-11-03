@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
   <title>List Tickets</title>
@@ -21,18 +21,20 @@
           <img src="../../images/logo1.png" height="40" width="40">
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/show-routs">Главная <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="/routs">Главная <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Меню
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="/show-routs">Заказать билет</a>
-            <a class="dropdown-item" href="/user/my-tickets">Мои билеты</a>
+            <a class="dropdown-item" href="/routs">Заказать билет</a>
+            <a class="dropdown-item" href="/user/tickets/showMyTickets">Мои билеты</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="/admin/all-orders">Просмотреть все билеты</a>
-            <a class="dropdown-item" href="/admin/users">Управление пользователями</a>
+            <div sec:authorize="hasRole('ADMIN')">
+              <a class="dropdown-item" href="/admin/tickets">Просмотреть все билеты</a>
+              <a class="dropdown-item" href="/admin/users">Управление пользователями</a>
+            </div>
           </div>
         </li>
         <li class="nav-item" style="margin-left: 1050px">

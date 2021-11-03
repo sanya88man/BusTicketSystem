@@ -29,5 +29,4 @@ public class RoutDaoImpl implements RoutDao {
     public List<Rout> loadRouts() {
         return sessionFactory.getCurrentSession().createQuery("from Rout ").list();
     }
-
 }

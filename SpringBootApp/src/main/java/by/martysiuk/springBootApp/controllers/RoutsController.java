@@ -34,7 +34,6 @@ public class RoutsController {
     @GetMapping("/user/routs/{id}")
     public String showRout(@PathVariable("id") int id, Model model,
                            GregorianCalendar calendar, SimpleDateFormat simpleDateFormat) {
-
         String s1;
         String s2;
         String s3;

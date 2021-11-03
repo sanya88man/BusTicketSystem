@@ -36,7 +36,6 @@ public class UsersController {
 
     @PostMapping("/users/processRegister")
     public String createUser(@ModelAttribute("user") User user) {
-
         if (userDao.findByUserName(user.getUsername()) != null) {
             return "users/errAddUser";
         }
@@ -54,7 +53,6 @@ public class UsersController {
 
     @PostMapping("/admin/users/delete")
     public String deleteUser(@ModelAttribute("user1") User user) {
-
         if (userDao.findByUserName(user.getUsername()) == null) {
             return "users/userNotExist";
         }
@@ -65,7 +63,6 @@ public class UsersController {
 
     @PostMapping("admin/users/newAdmin")
     public String addAdmin(@ModelAttribute("user1") User user) {
-
         if (userDao.findByUserName(user.getUsername()) == null) {
             return "users/userNotExist";
         }

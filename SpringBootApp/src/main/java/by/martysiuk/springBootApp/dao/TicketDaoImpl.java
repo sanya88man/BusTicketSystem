@@ -42,12 +42,6 @@ public class TicketDaoImpl implements TicketDao {
 
     @Transactional
     @Override
-    public List<Rout> loadRouts() {
-        return sessionFactory.getCurrentSession().createQuery("from Rout ").list();
-    }
-
-    @Transactional
-    @Override
     public List<Ticket> loadTickets() {
         return sessionFactory.getCurrentSession().createQuery("from Ticket").list();
     }
@@ -70,12 +64,6 @@ public class TicketDaoImpl implements TicketDao {
     @Override
     public void saveTicket(Ticket ticket) {
         sessionFactory.getCurrentSession().persist(ticket);
-    }
-
-    @Transactional
-    @Override
-    public Rout getRout(int service_id) {
-        return sessionFactory.getCurrentSession().get(Rout.class, service_id);
     }
 
     @Transactional

@@ -11,13 +11,10 @@ public interface TicketDao {
 
     void saveTicket(Ticket ticket);
 
-    Rout getRout(int rout_id);
-
     List<Ticket> findMyTickets(String username);
 
     void deleteTicket(int id);
 
-    List<Rout> loadRouts();
 
     Rout showRout(int id);
 

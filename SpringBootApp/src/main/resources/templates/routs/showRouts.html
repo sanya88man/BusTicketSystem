@@ -28,11 +28,11 @@
                         Меню
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/show-routs">Заказать билет</a>
-                        <a class="dropdown-item" href="/user/my-tickets">Мои билеты</a>
+                        <a class="dropdown-item" href="/routs">Заказать билет</a>
+                        <a class="dropdown-item" href="/user/tickets/showMyTickets">Мои билеты</a>
                         <div class="dropdown-divider"></div>
                         <div sec:authorize="hasRole('ADMIN')">
-                            <a class="dropdown-item" href="/admin/all-orders">Просмотреть все билеты</a>
+                            <a class="dropdown-item" href="/admin/tickets">Просмотреть все билеты</a>
                             <a class="dropdown-item" href="/admin/users">Управление пользователями</a>
                         </div>
                     </div>
@@ -52,33 +52,27 @@
 <div class="container text-center" style="margin-top: 40px">
 
     <div>
-        <h2 style="color: lightslategray">Свободные места</h2>
-        <h5 th:text="${rout.getName()}"></h5>
-        <h5 th:text="${date}"></h5>
+        <h2 style="color: lightslategray">Список Маршрутов</h2>
     </div>
     </br>
 
-    <div th:width="200px">
-        <table class="table table-striped table-bordered" width="200px" style="width: 200px; margin-right: auto; margin-left: auto">
+    <div>
+        <table class="table table-striped table-bordered">
             <thead class="thead-dark">
             <tr>
-                <th>Место N%</th>
+                <th>Название</th>
+                <th>Цена(BYN)</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="ticket: ${ticketList}">
+            <tr th:each="rout: ${routList}">
                 <td>
-                    <form th:action="@{/user/add-ticket}"
-                          th:method="post"
-                          th:object="${ticket}">
-                          <!--th:text="${seat.getSeat()}"-->
-                        <!--@{/user/{id}/{date}/{seat}(id=${rout.getId()}, date=${date}, seat=${seat.getSeat()})}-->
-                        <input type="hidden" name="rout_id" th:value="${rout.getId()}"/>
-                        <input type="hidden" name="date" th:value="${date}"/>
-                        <input type="hidden" name="seat" th:value="${ticket.getSeat()}"/>
-                        <button type="submit" class="hyperlink" th:text="${ticket.getSeat()}"></button>
-                    </form>
+                    <a
+                            th:href="@{/user/routs/{id}(id=${rout.getId()})}"
+                            th:text="${rout.getName()}">
+                    </a>
                 </td>
+                <td th:text="${rout.getPrice()}">price</td>
             </tr>
             </tbody>
         </table>

@@ -28,11 +28,11 @@
                         Меню
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/show-routs">Заказать билет</a>
-                        <a class="dropdown-item" href="/user/my-tickets">Мои билеты</a>
+                        <a class="dropdown-item" href="/routs">Заказать билет</a>
+                        <a class="dropdown-item" href="/user/tickets/showMyTickets">Мои билеты</a>
                         <div class="dropdown-divider"></div>
                         <div sec:authorize="hasRole('ADMIN')">
-                            <a class="dropdown-item" href="/admin/all-orders">Просмотреть все билеты</a>
+                            <a class="dropdown-item" href="/admin/tickets">Просмотреть все билеты</a>
                             <a class="dropdown-item" href="/admin/users">Управление пользователями</a>
                         </div>
                     </div>
@@ -77,7 +77,7 @@
     </div>
     </br>
 
-    <h4><a th:href="@{/show-routs}">Продолжить</a></h4>
+    <h4><a th:href="@{/routs}">Продолжить</a></h4>
 
 </div>
 

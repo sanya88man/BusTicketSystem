@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Error adding user</title>
+  <title>User not exist</title>
   <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
   <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
   <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
@@ -10,8 +10,8 @@
 <body style="background-color: #e9ecef; margin-top: 70px">
 
 <div class="container text-center">
-  <h1>Пользователь с таким именем уже существует!</h1>
-  <h3><a th:href="@{/register}">Попробовать снова</a></h3>
+  <h1>Такого билета не существует!</h1>
+  <h3><a th:href="@{/admin/tickets}">Попробовать снова</a></h3>
 </div>
 
 </body>

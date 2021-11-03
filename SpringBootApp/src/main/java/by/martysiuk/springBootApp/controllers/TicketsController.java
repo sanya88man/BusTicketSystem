@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
@@ -22,46 +21,7 @@ public class TicketsController {
         this.ticketDao = ticketDao;
     }
 
-    @GetMapping("/show-routs")
-    public String listRouts(Model model /*, @ModelAttribute("routList") Rout rout*/) {
-        List<Rout> routList = ticketDao.loadRouts();
-        model.addAttribute("routList", routList);
-        return "user/show-routs";
-    }
-
-    @GetMapping("/user/{id}")
-    public String showRout(@PathVariable("id") int id, Model model,
-                           GregorianCalendar calendar, SimpleDateFormat simpleDateFormat) {
-
-        String s1;
-        String s2;
-        String s3;
-
-        model.addAttribute("rout", ticketDao.showRout(id));
-        model.addAttribute("id", id);
-
-        simpleDateFormat.applyPattern("dd-MM-yyyy");
-
-        calendar.set(Calendar.HOUR, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-
-        s1 = simpleDateFormat.format(calendar.getTime());
-
-        calendar.add(Calendar.DAY_OF_MONTH, 1);
-        s2 = simpleDateFormat.format(calendar.getTime());
-
-        calendar.add(Calendar.DAY_OF_MONTH, 1);
-        s3 = simpleDateFormat.format(calendar.getTime());
-
-        model.addAttribute("s1", s1);
-        model.addAttribute("s2", s2);
-        model.addAttribute("s3", s3);
-
-        return "user/show-rout";
-    }
-
-    @GetMapping("/user/{id}/{date}")
+    @GetMapping("/user/tickets/{id}/{date}")
     String showSeats(@PathVariable(value = "date") String date,
                      @PathVariable(value = "id") int id, Model model) {
 
@@ -78,7 +38,7 @@ public class TicketsController {
         }
 
         List<Ticket> tickets = ticketDao.showSeats(date, id);
-        Rout rout = ticketDao.getRout(id);
+        Rout rout = ticketDao.showRout(id);
 
         for (Ticket ticket1 : ticketList) {
             for (Ticket ticket2 : tickets) {
@@ -102,46 +62,46 @@ public class TicketsController {
         model.addAttribute("id", id);
         model.addAttribute("date", date);
 
-        return "user/show-seats";
+        return "tickets/showSeats";
     }
 
-    @PostMapping("/user/add-ticket")
+    @PostMapping("/user/tickets/new")
     String addTicket(@ModelAttribute("ticket") Ticket ticket, Model model,
                      HttpServletRequest httpServletRequest) {
 
-        Rout rout = ticketDao.getRout(ticket.getRout_id());
+        Rout rout = ticketDao.showRout(ticket.getRout_id());
         model.addAttribute("rout", rout);
 
         ticket.setUsername(httpServletRequest.getRemoteUser());
 
         ticketDao.saveTicket(ticket);
 
-        return "user/show-ticket";
+        return "tickets/showNewTicket";
     }
 
-    @GetMapping("/user/my-tickets")
+    @GetMapping("/user/tickets/showMyTickets")
     String showMyTickets(Model model, HttpServletRequest httpServletRequest) {
         List<Ticket> tickets = ticketDao.findMyTickets(httpServletRequest.getRemoteUser());
         model.addAttribute("tickets", tickets);
-        return "user/my-tickets";
+        return "tickets/showMyTickets";
     }
 
-    @GetMapping("/admin/all-orders")
+    @GetMapping("/admin/tickets")
     String showAllTickets(Model model) {
         List<Ticket> tickets = ticketDao.loadTickets();
         model.addAttribute("tickets", tickets);
-        return "admin/all-orders";
+        return "tickets/showAllTickets";
     }
 
-    @PostMapping("/admin/delete-ticket")
+    @PostMapping("/admin/tickets/delete")
     String deleteTicket(@ModelAttribute("ticket") Ticket ticket) {
         ticketDao.deleteTicket(ticket.getId());
-        return "redirect:/admin/all-orders";
+        return "redirect:/admin/tickets/showAllTickets";
     }
 
-    @PostMapping("/user/delete-ticket")
+    @PostMapping("/user/tickets/delete")
     String deleteUserTicket(@ModelAttribute("ticket") Ticket ticket) {
         ticketDao.deleteTicket(ticket.getId());
-        return "redirect:/user/my-tickets";
+        return "redirect:/user/tickets/showMyTickets";
     }
 }

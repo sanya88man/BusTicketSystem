@@ -21,7 +21,7 @@ public class UsersController {
 
     @GetMapping("/")
     public String index() {
-        return "enter/index";
+        return "users/index";
     }
 
     @GetMapping("/403")

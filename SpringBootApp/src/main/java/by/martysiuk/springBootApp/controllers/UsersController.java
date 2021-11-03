@@ -20,12 +20,12 @@ public class UsersController {
     }
 
     @GetMapping("/")
-    public String index() {
+    public String showUsers() {
         return "users/index";
     }
 
     @GetMapping("/403")
-    public String err403() {
+    public String error403() {
         return "users/403";
     }
 
@@ -36,7 +36,7 @@ public class UsersController {
 
     @PostMapping("/users/processRegister")
     public String createUser(@ModelAttribute("user") User user) {
-        if (userDao.findByUserName(user.getUsername()) != null) {
+        if (userDao.showUserByUsername(user.getUsername()) != null) {
             return "users/errAddUser";
         }
 
@@ -46,14 +46,14 @@ public class UsersController {
 
     @GetMapping("/admin/users")
     public String showUsers(Model model, @ModelAttribute("user1") User user) {
-        List<User> listUsers = userDao.findAll();
+        List<User> listUsers = userDao.showUsers();
         model.addAttribute("listUsers", listUsers);
         return "users/showUsers";
     }
 
     @PostMapping("/admin/users/delete")
     public String deleteUser(@ModelAttribute("user1") User user) {
-        if (userDao.findByUserName(user.getUsername()) == null) {
+        if (userDao.showUserByUsername(user.getUsername()) == null) {
             return "users/userNotExist";
         }
 
@@ -63,12 +63,11 @@ public class UsersController {
 
     @PostMapping("admin/users/newAdmin")
     public String addAdmin(@ModelAttribute("user1") User user) {
-        if (userDao.findByUserName(user.getUsername()) == null) {
+        if (userDao.showUserByUsername(user.getUsername()) == null) {
             return "users/userNotExist";
         }
 
         userDao.addAdmin(user.getUsername());
         return "redirect:/admin/users";
     }
-
 }

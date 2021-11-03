@@ -23,7 +23,7 @@ public class UserDaoImpl implements UserDao {
     @SuppressWarnings("unchecked")
     @Transactional
     @Override
-    public User findByUserName(String username) {
+    public User showUserByUsername(String username) {
         return sessionFactory.getCurrentSession().get(User.class, username);
     }
 
@@ -46,7 +46,7 @@ public class UserDaoImpl implements UserDao {
 
     @Transactional
     @Override
-    public List<User> findAll() {
+    public List<User> showUsers() {
         return sessionFactory.getCurrentSession().createQuery("from User").list();
     }
 

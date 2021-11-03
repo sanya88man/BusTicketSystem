@@ -70,7 +70,6 @@
                     <form th:action="@{/user/tickets/new}"
                           th:method="post"
                           th:object="${ticket}">
-                          <!--th:text="${seat.getSeat()}"-->
                         <!--@{/user/{id}/{date}/{seat}(id=${rout.getId()}, date=${date}, seat=${seat.getSeat()})}-->
                         <input type="hidden" name="rout_id" th:value="${rout.getId()}"/>
                         <input type="hidden" name="date" th:value="${date}"/>

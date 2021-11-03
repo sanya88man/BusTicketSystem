@@ -26,7 +26,7 @@ public class RoutDaoImpl implements RoutDao {
 
     @Transactional
     @Override
-    public List<Rout> loadRouts() {
+    public List<Rout> showRouts() {
         return sessionFactory.getCurrentSession().createQuery("from Rout ").list();
     }
 }

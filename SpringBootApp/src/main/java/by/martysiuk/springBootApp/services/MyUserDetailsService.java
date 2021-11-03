@@ -33,7 +33,7 @@ public class MyUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(final String username)
             throws UsernameNotFoundException {
 
-        by.martysiuk.springBootApp.models.User user = userDao.findByUserName(username);
+        by.martysiuk.springBootApp.models.User user = userDao.showUserByUsername(username);
 
         if (user == null) {
             throw new UsernameNotFoundException("User " + username + " was not found in the database");

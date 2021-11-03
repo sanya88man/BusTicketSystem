@@ -1,5 +1,6 @@
 package by.martysiuk.springBootApp.controllers;
 
+import by.martysiuk.springBootApp.dao.RoutDao;
 import by.martysiuk.springBootApp.dao.TicketDao;
 import by.martysiuk.springBootApp.models.Rout;
 import by.martysiuk.springBootApp.models.Ticket;
@@ -15,10 +16,12 @@ import java.util.*;
 public class TicketsController {
 
     private final TicketDao ticketDao;
+    private final RoutDao routDao;
 
     @Autowired
-    public TicketsController(TicketDao ticketDao) {
+    public TicketsController(TicketDao ticketDao, RoutDao routDao) {
         this.ticketDao = ticketDao;
+        this.routDao = routDao;
     }
 
     @GetMapping("/user/tickets/{id}/{date}")
@@ -37,7 +40,7 @@ public class TicketsController {
         }
 
         List<Ticket> tickets = ticketDao.showSeats(date, id);
-        Rout rout = ticketDao.showRout(id);
+        Rout rout = routDao.showRout(id);
 
         for (Ticket ticket1 : ticketList) {
             for (Ticket ticket2 : tickets) {
@@ -57,17 +60,16 @@ public class TicketsController {
         }
 
         model.addAttribute("rout", rout);
-        model.addAttribute("ticketList", ticketList);
-        model.addAttribute("id", id);
         model.addAttribute("date", date);
+        model.addAttribute("ticketList", ticketList);
 
         return "tickets/showSeats";
     }
 
     @PostMapping("/user/tickets/new")
-    String addTicket(@ModelAttribute("ticket") Ticket ticket, Model model,
+    String createTicket(@ModelAttribute("ticket") Ticket ticket, Model model,
                      HttpServletRequest httpServletRequest) {
-        Rout rout = ticketDao.showRout(ticket.getRout_id());
+        Rout rout = routDao.showRout(ticket.getRout_id());
         model.addAttribute("rout", rout);
 
         ticket.setUsername(httpServletRequest.getRemoteUser());
@@ -79,14 +81,14 @@ public class TicketsController {
 
     @GetMapping("/user/tickets/showMyTickets")
     String showMyTickets(Model model, HttpServletRequest httpServletRequest) {
-        List<Ticket> tickets = ticketDao.findMyTickets(httpServletRequest.getRemoteUser());
+        List<Ticket> tickets = ticketDao.showTicketsByUsername(httpServletRequest.getRemoteUser());
         model.addAttribute("tickets", tickets);
         return "tickets/showMyTickets";
     }
 
     @GetMapping("/admin/tickets")
     String showAllTickets(Model model) {
-        List<Ticket> tickets = ticketDao.loadTickets();
+        List<Ticket> tickets = ticketDao.showTickets();
         model.addAttribute("tickets", tickets);
         return "tickets/showAllTickets";
     }

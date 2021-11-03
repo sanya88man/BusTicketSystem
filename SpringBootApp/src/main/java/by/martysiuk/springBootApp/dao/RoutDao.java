@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface RoutDao {
     Rout showRout(int id);
-    List<Rout> loadRouts();
+    List<Rout> showRouts();
 }

@@ -36,19 +36,13 @@ public class TicketDaoImpl implements TicketDao {
 
     @Transactional
     @Override
-    public Rout showRout(int id) {
-        return sessionFactory.getCurrentSession().get(Rout.class, id);
-    }
-
-    @Transactional
-    @Override
-    public List<Ticket> loadTickets() {
+    public List<Ticket> showTickets() {
         return sessionFactory.getCurrentSession().createQuery("from Ticket").list();
     }
 
     @Transactional
     @Override
-    public List<Ticket> findMyTickets(String username) {
+    public List<Ticket> showTicketsByUsername(String username) {
         String hql = "FROM Ticket where username = :paramName";
         Query query = sessionFactory.getCurrentSession().createQuery(hql);
 

@@ -25,7 +25,7 @@ public class RoutsController {
 
     @GetMapping("/routs")
     public String showRouts(Model model /*, @ModelAttribute("routList") Rout rout*/) {
-        List<Rout> routList = routDao.loadRouts();
+        List<Rout> routList = routDao.showRouts();
         model.addAttribute("routList", routList);
         return "routs/showRouts";
     }

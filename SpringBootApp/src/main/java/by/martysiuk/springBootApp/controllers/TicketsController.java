@@ -66,16 +66,19 @@ public class TicketsController {
         return "tickets/showSeats";
     }
 
-    @PostMapping("/user/tickets/new")
-    String createTicket(@ModelAttribute("ticket") Ticket ticket, Model model,
-                     HttpServletRequest httpServletRequest) {
+    @PostMapping("/user/tickets")
+    String createTicket(@ModelAttribute("ticket") Ticket ticket,
+                        HttpServletRequest httpServletRequest) {
         ticket.setUsername(httpServletRequest.getRemoteUser());
         ticketDao.saveTicket(ticket);
+        return "redirect:/routs";
+    }
 
+    @PostMapping("/user/tickets/new")
+    String newTicket(@ModelAttribute("ticket") Ticket ticket, Model model) {
         Rout rout = routDao.showRout(ticket.getRout_id());
         model.addAttribute("rout", rout);
-
-        return "tickets/showNewTicket";
+        return "tickets/showTicket";
     }
 
     @GetMapping("/user/tickets/showMyTickets")

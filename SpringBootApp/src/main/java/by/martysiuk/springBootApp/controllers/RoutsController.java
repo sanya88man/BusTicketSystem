@@ -24,7 +24,7 @@ public class RoutsController {
     }
 
     @GetMapping("/routs")
-    public String showRouts(Model model /*, @ModelAttribute("routList") Rout rout*/) {
+    public String showRouts(Model model) {
         List<Rout> routList = routDao.showRouts();
         model.addAttribute("routList", routList);
         return "routs/showRouts";
@@ -32,7 +32,8 @@ public class RoutsController {
 
     @GetMapping("/user/routs/{id}")
     public String showRout(@PathVariable("id") int id, Model model,
-                           GregorianCalendar calendar, SimpleDateFormat simpleDateFormat) {
+                           GregorianCalendar calendar,
+                           SimpleDateFormat simpleDateFormat) {
         String s1;
         String s2;
         String s3;

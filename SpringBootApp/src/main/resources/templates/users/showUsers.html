@@ -100,8 +100,8 @@
       </thead>
       <tbody>
       <tr th:each="user: ${listUsers}">
-        <td th:text="${user.username}">Username</td>
-        <td th:text="${user.password}">password</td>
+        <td th:text="${user.getUsername()}">Username</td>
+        <td th:text="${user.getPassword()}">password</td>
       </tr>
       </tbody>
     </table>

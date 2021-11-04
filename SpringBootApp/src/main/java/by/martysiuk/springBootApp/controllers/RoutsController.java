@@ -5,9 +5,13 @@ import by.martysiuk.springBootApp.models.Rout;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import javax.validation.Valid;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -28,6 +32,32 @@ public class RoutsController {
         List<Rout> routList = routDao.showRouts();
         model.addAttribute("routList", routList);
         return "routs/showRouts";
+    }
+
+    @GetMapping("/admin/routs/edit")
+    public String showRoutsForEdit(Model model) {
+        List<Rout> routList = routDao.showRouts();
+        model.addAttribute("routList", routList);
+        return "routs/showRoutsForEdit";
+    }
+
+    @GetMapping("/admin/routs/{id}/editRout")
+    public String editRout(Model model, @PathVariable("id") int id) {
+        Rout rout = routDao.showRout(id);
+        model.addAttribute("rout", rout);
+        //model.addAttribute("id", id);
+        return "routs/editRout";
+    }
+
+    @PatchMapping("/admin/routs/{id}")
+    public String updateRout(@ModelAttribute("rout") @Valid Rout rout,
+                             BindingResult bindingResult, @PathVariable("id") int id) {
+        if (bindingResult.hasErrors()) {
+            return "routs/editRout";
+        }
+
+        routDao.updateRout(rout);
+        return "redirect:/routs";
     }
 
     @GetMapping("/user/routs/{id}")

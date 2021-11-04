@@ -29,4 +29,10 @@ public class RoutDaoImpl implements RoutDao {
     public List<Rout> showRouts() {
         return sessionFactory.getCurrentSession().createQuery("from Rout ").list();
     }
+
+    @Transactional
+    @Override
+    public void updateRout(Rout rout) {
+        sessionFactory.getCurrentSession().update(rout);
+    }
 }

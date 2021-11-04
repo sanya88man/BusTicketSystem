@@ -53,7 +53,7 @@
 <div class="container text-center" style="margin-top: 40px">
 
     <div>
-        <h2 style="color: lightslategray">Список Маршрутов</h2>
+        <h2 style="color: lightslategray">Выберите маршрут для редактирования</h2>
     </div>
     </br>
 
@@ -69,7 +69,7 @@
             <tr th:each="rout: ${routList}">
                 <td>
                     <a
-                            th:href="@{/user/routs/{id}(id=${rout.getId()})}"
+                            th:href="@{/admin/routs/{id}/editRout(id=${rout.getId()})}"
                             th:text="${rout.getName()}">
                     </a>
                 </td>

@@ -62,7 +62,7 @@
 
             <div class="form-group row">
                 <label for="name" class="col-4 col-form-label">Маршрут: </label>
-                <div class="col-8">
+                <div class="col-6">
                     <input type="text" th:field="*{name}" class="form-control" id="name"/>
                     <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">name error</div>
                 </div>
@@ -70,7 +70,7 @@
 
             <div class="form-group row">
                 <label for="price" class="col-4 col-form-label">Цена: </label>
-                <div class="col-8">
+                <div class="col-6">
                     <input type="text" th:field="*{price}" class="form-control" id="price"/>
                     <div style="color:red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">price error</div>
                 </div>

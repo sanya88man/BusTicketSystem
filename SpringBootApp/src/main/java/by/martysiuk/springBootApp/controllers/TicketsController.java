@@ -1,6 +1,5 @@
 package by.martysiuk.springBootApp.controllers;
 
-import by.martysiuk.springBootApp.models.Rout;
 import by.martysiuk.springBootApp.models.Ticket;
 import by.martysiuk.springBootApp.services.RoutService;
 import by.martysiuk.springBootApp.services.TicketService;
@@ -10,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.*;
 
 @Controller
 public class TicketsController {
@@ -27,42 +25,9 @@ public class TicketsController {
     @GetMapping("/user/tickets/{id}/{date}")
     String showSeats(@PathVariable(value = "date") String date,
                      @PathVariable(value = "id") int id, Model model) {
-        List<Ticket> ticketList = new ArrayList<>();
-
-        final int SEATS_AMOUNT = 20;
-        int k = 0;
-        int count = 0;
-
-        for (int i = 0; i < SEATS_AMOUNT; i++) {
-            Ticket ticket1 = new Ticket();
-            ticketList.add(ticket1);
-            ticketList.get(i).setSeat(i + 1);
-        }
-
-        List<Ticket> tickets = ticketService.showSeats(date, id);
-        Rout rout = routService.showRout(id);
-
-        for (Ticket ticket1 : ticketList) {
-            for (Ticket ticket2 : tickets) {
-                if (ticket1.getSeat() == ticket2.getSeat()) {
-                    ticket1.setSeat(-1);
-                }
-            }
-        }
-
-        while (count != SEATS_AMOUNT){
-            if (ticketList.get(k).getSeat() == -1) {
-                ticketList.remove(ticketList.get(k));
-            } else {
-                k++;
-            }
-            count++;
-        }
-
-        model.addAttribute("rout", rout);
+        model.addAttribute("rout", routService.showRout(id));
         model.addAttribute("date", date);
-        model.addAttribute("ticketList", ticketList);
-
+        model.addAttribute("ticketList", ticketService.showSeats(date, id));
         return "tickets/showSeats";
     }
 
@@ -76,29 +41,27 @@ public class TicketsController {
 
     @PostMapping("/user/tickets/new")
     String newTicket(@ModelAttribute("ticket") Ticket ticket, Model model) {
-        Rout rout = routService.showRout(ticket.getRout_id());
-        model.addAttribute("rout", rout);
+        model.addAttribute("rout", routService.showRout(ticket.getRout_id()));
         return "tickets/showTicket";
     }
 
     @GetMapping("/user/tickets/showMyTickets")
     String showMyTickets(Model model, HttpServletRequest httpServletRequest) {
-        List<Ticket> tickets = ticketService.showTicketsByUsername(httpServletRequest.getRemoteUser());
-        model.addAttribute("tickets", tickets);
+        model.addAttribute("tickets",
+                ticketService.showTicketsByUsername(httpServletRequest.getRemoteUser()));
         return "tickets/showMyTickets";
     }
 
     @GetMapping("/admin/tickets")
     String showTickets(Model model) {
-        List<Ticket> tickets = ticketService.showTickets();
-        model.addAttribute("tickets", tickets);
+        model.addAttribute("tickets", ticketService.showTickets());
         return "tickets/showAllTickets";
     }
 
     @DeleteMapping("/admin/tickets/delete")
     String deleteTicketByAdmin(@ModelAttribute("ticket") Ticket ticket) {
         ticketService.deleteTicket(ticket.getId());
-         return "redirect:/admin/tickets";
+        return "redirect:/admin/tickets";
     }
 
     @DeleteMapping("/user/tickets/delete")

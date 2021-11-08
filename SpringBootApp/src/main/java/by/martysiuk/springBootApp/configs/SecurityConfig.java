@@ -70,7 +70,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
     }
 
-    public class EncodingFilterConfig implements Filter {
+    public static class EncodingFilterConfig implements Filter {
         @Override
         public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
                 throws IOException, ServletException {
@@ -82,8 +82,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder passwordEncoder(){
-        PasswordEncoder encoder = new BCryptPasswordEncoder();
-        return encoder;
+        return new BCryptPasswordEncoder();
     }
 
 }

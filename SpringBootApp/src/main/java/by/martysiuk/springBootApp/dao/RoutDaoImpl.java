@@ -22,6 +22,7 @@ public class RoutDaoImpl implements RoutDao {
         return sessionFactory.getCurrentSession().get(Rout.class, id);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public List<Rout> showRouts() {
         return sessionFactory.getCurrentSession().createQuery("from Rout ").list();

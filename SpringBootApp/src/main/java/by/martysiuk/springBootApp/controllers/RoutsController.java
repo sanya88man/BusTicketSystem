@@ -15,7 +15,6 @@ import javax.validation.Valid;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 @Controller
 public class RoutsController {
@@ -29,28 +28,25 @@ public class RoutsController {
 
     @GetMapping("/routs")
     public String showRouts(Model model) {
-        List<Rout> routList = routService.showRouts();
-        model.addAttribute("routList", routList);
+        model.addAttribute("routList", routService.showRouts());
         return "routs/showRouts";
     }
 
     @GetMapping("/admin/routs/edit")
     public String showRoutsForEdit(Model model) {
-        List<Rout> routList = routService.showRouts();
-        model.addAttribute("routList", routList);
+        model.addAttribute("routList", routService.showRouts());
         return "routs/showRoutsForEdit";
     }
 
     @GetMapping("/admin/routs/{id}/editRout")
     public String editRout(Model model, @PathVariable("id") int id) {
-        Rout rout = routService.showRout(id);
-        model.addAttribute("rout", rout);
+        model.addAttribute("rout", routService.showRout(id));
         return "routs/editRout";
     }
 
     @PatchMapping("/admin/routs/{id}")
     public String updateRout(@ModelAttribute("rout") @Valid Rout rout,
-                             BindingResult bindingResult, @PathVariable("id") int id) {
+                             BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "routs/editRout";
         }
@@ -67,9 +63,6 @@ public class RoutsController {
         String s2;
         String s3;
 
-        model.addAttribute("rout", routService.showRout(id));
-        model.addAttribute("id", id);
-
         simpleDateFormat.applyPattern("dd-MM-yyyy");
 
         calendar.set(Calendar.HOUR, 0);
@@ -84,6 +77,8 @@ public class RoutsController {
         calendar.add(Calendar.DAY_OF_MONTH, 1);
         s3 = simpleDateFormat.format(calendar.getTime());
 
+        model.addAttribute("rout", routService.showRout(id));
+        model.addAttribute("id", id);
         model.addAttribute("s1", s1);
         model.addAttribute("s2", s2);
         model.addAttribute("s3", s3);

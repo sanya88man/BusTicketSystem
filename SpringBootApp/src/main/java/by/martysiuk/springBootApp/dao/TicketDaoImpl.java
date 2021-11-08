@@ -18,24 +18,26 @@ public class TicketDaoImpl implements TicketDao {
         this.sessionFactory = sessionFactory;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public List<Ticket> showSeats(String date, int id) {
         String hql = "from Ticket where date = :date and rout_id = :id";
+
         Query query = sessionFactory.getCurrentSession().createQuery(hql);
 
         query.setParameter("date", date);
         query.setParameter("id", id);
 
-        List<Ticket> ticketList= query.list();
-
-        return ticketList;
+        return query.list();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public List<Ticket> showTickets() {
         return sessionFactory.getCurrentSession().createQuery("from Ticket").list();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public List<Ticket> showTicketsByUsername(String username) {
         String hql = "FROM Ticket where username = :paramName";
@@ -43,9 +45,7 @@ public class TicketDaoImpl implements TicketDao {
 
         query.setParameter("paramName", username);
 
-        List<Ticket> ticketList = query.list();
-
-        return ticketList;
+        return query.list();
     }
 
     @Override

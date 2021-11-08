@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class RoutServiceImpl implements RoutService{
+public class RoutServiceImpl implements RoutService {
 
     private final RoutDao routDao;
 

@@ -4,7 +4,6 @@ import by.martysiuk.springBootApp.models.Rout;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,19 +17,16 @@ public class RoutDaoImpl implements RoutDao {
         this.sessionFactory = sessionFactory;
     }
 
-    @Transactional
     @Override
     public Rout showRout(int id) {
         return sessionFactory.getCurrentSession().get(Rout.class, id);
     }
 
-    @Transactional
     @Override
     public List<Rout> showRouts() {
         return sessionFactory.getCurrentSession().createQuery("from Rout ").list();
     }
 
-    @Transactional
     @Override
     public void updateRout(Rout rout) {
         sessionFactory.getCurrentSession().update(rout);

@@ -1,7 +1,7 @@
 package by.martysiuk.springBootApp.controllers;
 
-import by.martysiuk.springBootApp.dao.UserDao;
 import by.martysiuk.springBootApp.models.User;
+import by.martysiuk.springBootApp.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,12 +12,13 @@ import java.util.List;
 @Controller
 public class UsersController {
 
-    private final UserDao userDao;
+    private final UserService userService;
 
     @Autowired
-    public UsersController(UserDao userDao) {
-        this.userDao = userDao;
+    public UsersController(UserService userService) {
+        this.userService = userService;
     }
+
 
     @GetMapping("/")
     public String showUsers() {
@@ -36,38 +37,38 @@ public class UsersController {
 
     @PostMapping("/users/processRegister")
     public String createUser(@ModelAttribute("user") User user) {
-        if (userDao.showUserByUsername(user.getUsername()) != null) {
+        if (userService.showUserByUsername(user.getUsername()) != null) {
             return "users/errAddUser";
         }
 
-        userDao.saveUser(user);
+        userService.saveUser(user);
         return "users/registerSuccess";
     }
 
     @GetMapping("/admin/users")
     public String showUsers(Model model, @ModelAttribute("user1") User user) {
-        List<User> listUsers = userDao.showUsers();
+        List<User> listUsers = userService.showUsers();
         model.addAttribute("listUsers", listUsers);
         return "users/showUsers";
     }
 
     @DeleteMapping("/admin/users/delete")
     public String deleteUser(@ModelAttribute("user1") User user) {
-        if (userDao.showUserByUsername(user.getUsername()) == null) {
+        if (userService.showUserByUsername(user.getUsername()) == null) {
             return "users/userNotExist";
         }
 
-        userDao.deleteUser(user.getUsername());
+        userService.deleteUser(user.getUsername());
         return "redirect:/admin/users";
     }
 
     @PostMapping("admin/users/newAdmin")
     public String addAdmin(@ModelAttribute("user1") User user) {
-        if (userDao.showUserByUsername(user.getUsername()) == null) {
+        if (userService.showUserByUsername(user.getUsername()) == null) {
             return "users/userNotExist";
         }
 
-        userDao.addAdmin(user.getUsername());
+        userService.addAdmin(user.getUsername());
         return "redirect:/admin/users";
     }
 }

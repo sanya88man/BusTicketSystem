@@ -1,9 +1,9 @@
 package by.martysiuk.springBootApp.controllers;
 
-import by.martysiuk.springBootApp.dao.RoutDao;
-import by.martysiuk.springBootApp.dao.TicketDao;
 import by.martysiuk.springBootApp.models.Rout;
 import by.martysiuk.springBootApp.models.Ticket;
+import by.martysiuk.springBootApp.services.RoutService;
+import by.martysiuk.springBootApp.services.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,13 +15,13 @@ import java.util.*;
 @Controller
 public class TicketsController {
 
-    private final TicketDao ticketDao;
-    private final RoutDao routDao;
+    private final TicketService ticketService;
+    private final RoutService routService;
 
     @Autowired
-    public TicketsController(TicketDao ticketDao, RoutDao routDao) {
-        this.ticketDao = ticketDao;
-        this.routDao = routDao;
+    public TicketsController(TicketService ticketService, RoutService routService) {
+        this.ticketService = ticketService;
+        this.routService = routService;
     }
 
     @GetMapping("/user/tickets/{id}/{date}")
@@ -39,8 +39,8 @@ public class TicketsController {
             ticketList.get(i).setSeat(i + 1);
         }
 
-        List<Ticket> tickets = ticketDao.showSeats(date, id);
-        Rout rout = routDao.showRout(id);
+        List<Ticket> tickets = ticketService.showSeats(date, id);
+        Rout rout = routService.showRout(id);
 
         for (Ticket ticket1 : ticketList) {
             for (Ticket ticket2 : tickets) {
@@ -70,40 +70,40 @@ public class TicketsController {
     String createTicket(@ModelAttribute("ticket") Ticket ticket,
                         HttpServletRequest httpServletRequest) {
         ticket.setUsername(httpServletRequest.getRemoteUser());
-        ticketDao.saveTicket(ticket);
+        ticketService.saveTicket(ticket);
         return "redirect:/routs";
     }
 
     @PostMapping("/user/tickets/new")
     String newTicket(@ModelAttribute("ticket") Ticket ticket, Model model) {
-        Rout rout = routDao.showRout(ticket.getRout_id());
+        Rout rout = routService.showRout(ticket.getRout_id());
         model.addAttribute("rout", rout);
         return "tickets/showTicket";
     }
 
     @GetMapping("/user/tickets/showMyTickets")
     String showMyTickets(Model model, HttpServletRequest httpServletRequest) {
-        List<Ticket> tickets = ticketDao.showTicketsByUsername(httpServletRequest.getRemoteUser());
+        List<Ticket> tickets = ticketService.showTicketsByUsername(httpServletRequest.getRemoteUser());
         model.addAttribute("tickets", tickets);
         return "tickets/showMyTickets";
     }
 
     @GetMapping("/admin/tickets")
     String showTickets(Model model) {
-        List<Ticket> tickets = ticketDao.showTickets();
+        List<Ticket> tickets = ticketService.showTickets();
         model.addAttribute("tickets", tickets);
         return "tickets/showAllTickets";
     }
 
     @DeleteMapping("/admin/tickets/delete")
     String deleteTicketByAdmin(@ModelAttribute("ticket") Ticket ticket) {
-        ticketDao.deleteTicket(ticket.getId());
+        ticketService.deleteTicket(ticket.getId());
          return "redirect:/admin/tickets";
     }
 
     @DeleteMapping("/user/tickets/delete")
     String deleteTicketByUser(@ModelAttribute("ticket") Ticket ticket) {
-        ticketDao.deleteTicket(ticket.getId());
+        ticketService.deleteTicket(ticket.getId());
         return "redirect:/user/tickets/showMyTickets";
     }
 }

@@ -1,6 +1,5 @@
 package by.martysiuk.springBootApp.services;
 
-import by.martysiuk.springBootApp.dao.UserDao;
 import by.martysiuk.springBootApp.models.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -12,7 +11,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -21,11 +19,11 @@ import java.util.Set;
 @Service("userDetailsService")
 public class MyUserDetailsService implements UserDetailsService {
 
-    private final UserDao userDao;
+    private final UserService userService;
 
     @Autowired
-    public MyUserDetailsService(UserDao userDao) {
-        this.userDao = userDao;
+    public MyUserDetailsService(UserService userService) {
+        this.userService = userService;
     }
 
     @Transactional(readOnly=true)
@@ -33,7 +31,7 @@ public class MyUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(final String username)
             throws UsernameNotFoundException {
 
-        by.martysiuk.springBootApp.models.User user = userDao.showUserByUsername(username);
+        by.martysiuk.springBootApp.models.User user = userService.showUserByUsername(username);
 
         if (user == null) {
             throw new UsernameNotFoundException("User " + username + " was not found in the database");
@@ -57,14 +55,14 @@ public class MyUserDetailsService implements UserDetailsService {
 
     private List<GrantedAuthority> buildUserAuthority(Set<UserRole> userRoles) {
 
-        Set<GrantedAuthority> setAuths = new HashSet<GrantedAuthority>();
+        Set<GrantedAuthority> setAuths = new HashSet<>();
 
         // Build user's authorities
         for (UserRole userRole : userRoles) {
             setAuths.add(new SimpleGrantedAuthority(userRole.getRole()));
         }
 
-        List<GrantedAuthority> Result = new ArrayList<GrantedAuthority>(setAuths);
+        List<GrantedAuthority> Result = new ArrayList<>(setAuths);
 
         return Result;
     }

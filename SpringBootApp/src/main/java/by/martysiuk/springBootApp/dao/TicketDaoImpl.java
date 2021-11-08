@@ -1,12 +1,10 @@
 package by.martysiuk.springBootApp.dao;
 
-import by.martysiuk.springBootApp.models.Rout;
 import by.martysiuk.springBootApp.models.Ticket;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,7 +18,6 @@ public class TicketDaoImpl implements TicketDao {
         this.sessionFactory = sessionFactory;
     }
 
-    @Transactional
     @Override
     public List<Ticket> showSeats(String date, int id) {
         String hql = "from Ticket where date = :date and rout_id = :id";
@@ -34,13 +31,11 @@ public class TicketDaoImpl implements TicketDao {
         return ticketList;
     }
 
-    @Transactional
     @Override
     public List<Ticket> showTickets() {
         return sessionFactory.getCurrentSession().createQuery("from Ticket").list();
     }
 
-    @Transactional
     @Override
     public List<Ticket> showTicketsByUsername(String username) {
         String hql = "FROM Ticket where username = :paramName";
@@ -53,14 +48,11 @@ public class TicketDaoImpl implements TicketDao {
         return ticketList;
     }
 
-
-    @Transactional
     @Override
     public void saveTicket(Ticket ticket) {
         sessionFactory.getCurrentSession().persist(ticket);
     }
 
-    @Transactional
     @Override
     public void deleteTicket(int id) {
         String hql = "DELETE Ticket WHERE id = :id";

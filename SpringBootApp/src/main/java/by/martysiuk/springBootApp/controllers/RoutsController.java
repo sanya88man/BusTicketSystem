@@ -1,7 +1,7 @@
 package by.martysiuk.springBootApp.controllers;
 
-import by.martysiuk.springBootApp.dao.RoutDao;
 import by.martysiuk.springBootApp.models.Rout;
+import by.martysiuk.springBootApp.services.RoutService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,32 +20,31 @@ import java.util.List;
 @Controller
 public class RoutsController {
 
-    RoutDao routDao;
+    private final RoutService routService;
 
     @Autowired
-    public RoutsController(RoutDao routDao) {
-        this.routDao = routDao;
+    public RoutsController(RoutService routService) {
+        this.routService = routService;
     }
 
     @GetMapping("/routs")
     public String showRouts(Model model) {
-        List<Rout> routList = routDao.showRouts();
+        List<Rout> routList = routService.showRouts();
         model.addAttribute("routList", routList);
         return "routs/showRouts";
     }
 
     @GetMapping("/admin/routs/edit")
     public String showRoutsForEdit(Model model) {
-        List<Rout> routList = routDao.showRouts();
+        List<Rout> routList = routService.showRouts();
         model.addAttribute("routList", routList);
         return "routs/showRoutsForEdit";
     }
 
     @GetMapping("/admin/routs/{id}/editRout")
     public String editRout(Model model, @PathVariable("id") int id) {
-        Rout rout = routDao.showRout(id);
+        Rout rout = routService.showRout(id);
         model.addAttribute("rout", rout);
-        //model.addAttribute("id", id);
         return "routs/editRout";
     }
 
@@ -56,7 +55,7 @@ public class RoutsController {
             return "routs/editRout";
         }
 
-        routDao.updateRout(rout);
+        routService.updateRout(rout);
         return "redirect:/routs";
     }
 
@@ -68,7 +67,7 @@ public class RoutsController {
         String s2;
         String s3;
 
-        model.addAttribute("rout", routDao.showRout(id));
+        model.addAttribute("rout", routService.showRout(id));
         model.addAttribute("id", id);
 
         simpleDateFormat.applyPattern("dd-MM-yyyy");

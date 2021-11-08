@@ -6,7 +6,6 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,13 +20,11 @@ public class UserDaoImpl implements UserDao {
     }
 
     @SuppressWarnings("unchecked")
-    @Transactional
     @Override
     public User showUserByUsername(String username) {
         return sessionFactory.getCurrentSession().get(User.class, username);
     }
 
-    @Transactional
     @Override
     public void saveUser(User user) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -44,20 +41,17 @@ public class UserDaoImpl implements UserDao {
         sessionFactory.getCurrentSession().persist(userRole);
     }
 
-    @Transactional
     @Override
     public List<User> showUsers() {
         return sessionFactory.getCurrentSession().createQuery("from User").list();
     }
 
-    @Transactional
     @Override
     public void deleteUser(String username) {
         User user = sessionFactory.getCurrentSession().get(User.class, username);
         sessionFactory.getCurrentSession().delete(user);
     }
 
-    @Transactional
     @Override
     public void addAdmin(String username) {
         User user = sessionFactory.getCurrentSession().get(User.class, username);

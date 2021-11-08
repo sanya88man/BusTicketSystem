@@ -26,11 +26,10 @@ public class MyUserDetailsService implements UserDetailsService {
         this.userService = userService;
     }
 
-    @Transactional(readOnly=true)
+    @Transactional(readOnly = true)
     @Override
     public UserDetails loadUserByUsername(final String username)
             throws UsernameNotFoundException {
-
         by.martysiuk.springBootApp.models.User user = userService.showUserByUsername(username);
 
         if (user == null) {
@@ -41,30 +40,30 @@ public class MyUserDetailsService implements UserDetailsService {
                 buildUserAuthority(user.getUserRole());
 
         return buildUserForAuthentication(user, authorities);
-
     }
 
     // Converts ..models.User user to
     // org.springframework.security.core.userdetails.User
     private User buildUserForAuthentication(
-            by.martysiuk.springBootApp.models.User user, List<GrantedAuthority> authorities) {
+            by.martysiuk.springBootApp.models.User user,
+            List<GrantedAuthority> authorities) {
 
-        return new User(user.getUsername(), user.getPassword(),
-                user.isEnabled(), true, true, true, authorities);
+        return new User(user.getUsername(),
+                user.getPassword(),
+                user.isEnabled(),
+                true,
+                true,
+                true,
+                authorities);
     }
 
     private List<GrantedAuthority> buildUserAuthority(Set<UserRole> userRoles) {
-
         Set<GrantedAuthority> setAuths = new HashSet<>();
-
         // Build user's authorities
         for (UserRole userRole : userRoles) {
             setAuths.add(new SimpleGrantedAuthority(userRole.getRole()));
         }
-
-        List<GrantedAuthority> Result = new ArrayList<>(setAuths);
-
-        return Result;
+        return new ArrayList<>(setAuths);
     }
 
 }

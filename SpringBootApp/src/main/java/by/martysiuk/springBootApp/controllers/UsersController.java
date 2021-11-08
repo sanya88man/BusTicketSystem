@@ -5,9 +5,10 @@ import by.martysiuk.springBootApp.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class UsersController {
@@ -47,8 +48,7 @@ public class UsersController {
 
     @GetMapping("/admin/users")
     public String showUsers(Model model, @ModelAttribute("user1") User user) {
-        List<User> listUsers = userService.showUsers();
-        model.addAttribute("listUsers", listUsers);
+        model.addAttribute("listUsers", userService.showUsers());
         return "users/showUsers";
     }
 

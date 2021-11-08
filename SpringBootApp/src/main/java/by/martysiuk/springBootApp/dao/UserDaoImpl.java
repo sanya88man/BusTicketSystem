@@ -19,7 +19,6 @@ public class UserDaoImpl implements UserDao {
         this.sessionFactory = sessionFactory;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public User showUserByUsername(String username) {
         return sessionFactory.getCurrentSession().get(User.class, username);
@@ -41,6 +40,7 @@ public class UserDaoImpl implements UserDao {
         sessionFactory.getCurrentSession().persist(userRole);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public List<User> showUsers() {
         return sessionFactory.getCurrentSession().createQuery("from User").list();

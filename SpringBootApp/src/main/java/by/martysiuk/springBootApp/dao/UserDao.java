@@ -14,4 +14,8 @@ public interface UserDao {
     void deleteUser(String username);
 
     void addAdmin(String username);
+
+    void unblockUser(User user);
+
+    void blockUser(String username);
 }

@@ -5,10 +5,7 @@ import by.martysiuk.springBootApp.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class UsersController {
@@ -69,6 +66,26 @@ public class UsersController {
         }
 
         userService.addAdmin(user.getUsername());
+        return "redirect:/admin/users";
+    }
+
+    @PatchMapping("admin/users/block")
+    public String blockUser(@ModelAttribute("user1") User user) {
+        if (userService.showUserByUsername(user.getUsername()) == null) {
+            return "users/userNotExist";
+        }
+
+        userService.blockUser(user.getUsername());
+        return "redirect:/admin/users";
+    }
+
+    @PatchMapping("admin/users/unblock")
+    public String unblockUser(@ModelAttribute("user1") User user) {
+        if (userService.showUserByUsername(user.getUsername()) == null) {
+            return "users/userNotExist";
+        }
+
+        userService.unblockUser(user);
         return "redirect:/admin/users";
     }
 }

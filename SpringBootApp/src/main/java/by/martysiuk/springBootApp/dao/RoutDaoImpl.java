@@ -9,7 +9,6 @@ import java.util.List;
 
 @Repository
 public class RoutDaoImpl implements RoutDao {
-
     private final SessionFactory sessionFactory;
 
     @Autowired

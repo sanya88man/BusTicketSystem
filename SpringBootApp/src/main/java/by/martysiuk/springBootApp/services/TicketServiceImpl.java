@@ -11,7 +11,6 @@ import java.util.List;
 
 @Service
 public class TicketServiceImpl implements TicketService {
-
     private final TicketDao ticketDao;
 
     @Autowired

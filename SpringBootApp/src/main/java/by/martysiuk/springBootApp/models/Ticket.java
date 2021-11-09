@@ -1,12 +1,12 @@
 package by.martysiuk.springBootApp.models;
 
 import javax.persistence.*;
+
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "tickets")
 public class Ticket {
-
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id")

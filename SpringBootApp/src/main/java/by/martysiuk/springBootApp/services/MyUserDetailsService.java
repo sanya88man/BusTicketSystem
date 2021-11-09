@@ -18,7 +18,6 @@ import java.util.Set;
 
 @Service("userDetailsService")
 public class MyUserDetailsService implements UserDetailsService {
-
     private final UserService userService;
 
     @Autowired

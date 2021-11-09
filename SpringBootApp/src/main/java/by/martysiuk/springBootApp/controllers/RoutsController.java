@@ -13,12 +13,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.validation.Valid;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 @Controller
 public class RoutsController {
-
     private final RoutService routService;
 
     @Autowired
@@ -59,30 +57,13 @@ public class RoutsController {
     public String showRout(@PathVariable("id") int id, Model model,
                            GregorianCalendar calendar,
                            SimpleDateFormat simpleDateFormat) {
-        String s1;
-        String s2;
-        String s3;
-
-        simpleDateFormat.applyPattern("dd-MM-yyyy");
-
-        calendar.set(Calendar.HOUR, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-
-        s1 = simpleDateFormat.format(calendar.getTime());
-
-        calendar.add(Calendar.DAY_OF_MONTH, 1);
-        s2 = simpleDateFormat.format(calendar.getTime());
-
-        calendar.add(Calendar.DAY_OF_MONTH, 1);
-        s3 = simpleDateFormat.format(calendar.getTime());
+        String[] arr = routService.showDates(calendar, simpleDateFormat);
 
         model.addAttribute("rout", routService.showRout(id));
         model.addAttribute("id", id);
-        model.addAttribute("s1", s1);
-        model.addAttribute("s2", s2);
-        model.addAttribute("s3", s3);
-
+        model.addAttribute("s1", arr[0]);
+        model.addAttribute("s2", arr[1]);
+        model.addAttribute("s3", arr[2]);
         return "routs/showRout";
     }
 }

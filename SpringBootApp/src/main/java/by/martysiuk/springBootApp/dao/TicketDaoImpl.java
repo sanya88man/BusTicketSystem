@@ -10,7 +10,6 @@ import java.util.List;
 
 @Repository
 public class TicketDaoImpl implements TicketDao {
-
     private final SessionFactory sessionFactory;
 
     @Autowired
@@ -22,12 +21,9 @@ public class TicketDaoImpl implements TicketDao {
     @Override
     public List<Ticket> showSeats(String date, int id) {
         String hql = "from Ticket where date = :date and rout_id = :id";
-
         Query query = sessionFactory.getCurrentSession().createQuery(hql);
-
         query.setParameter("date", date);
         query.setParameter("id", id);
-
         return query.list();
     }
 
@@ -42,9 +38,7 @@ public class TicketDaoImpl implements TicketDao {
     public List<Ticket> showTicketsByUsername(String username) {
         String hql = "FROM Ticket where username = :paramName";
         Query query = sessionFactory.getCurrentSession().createQuery(hql);
-
         query.setParameter("paramName", username);
-
         return query.list();
     }
 

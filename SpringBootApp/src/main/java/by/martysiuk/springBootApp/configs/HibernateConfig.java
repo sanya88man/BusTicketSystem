@@ -17,7 +17,6 @@ import java.util.Properties;
 @ComponentScan(basePackages = "by.martysiuk.springBootApp")
 @EnableTransactionManagement
 public class HibernateConfig {
-
     private Environment environment;
 
     @Autowired

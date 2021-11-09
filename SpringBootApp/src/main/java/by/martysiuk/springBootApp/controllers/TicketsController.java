@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class TicketsController {
-
     private final TicketService ticketService;
     private final RoutService routService;
 

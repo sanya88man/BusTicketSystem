@@ -30,7 +30,6 @@ public class RoutServiceImpl implements RoutService {
     public String[] showDates(GregorianCalendar calendar,
                               SimpleDateFormat simpleDateFormat) {
         String[] arr = new String[3];
-
         simpleDateFormat.applyPattern("dd-MM-yyyy");
 
         calendar.set(Calendar.HOUR, 0);
@@ -38,10 +37,8 @@ public class RoutServiceImpl implements RoutService {
         calendar.set(Calendar.SECOND, 0);
 
         arr[0] = simpleDateFormat.format(calendar.getTime());
-
         calendar.add(Calendar.DAY_OF_MONTH, 1);
         arr[1] = simpleDateFormat.format(calendar.getTime());
-
         calendar.add(Calendar.DAY_OF_MONTH, 1);
         arr[2] = simpleDateFormat.format(calendar.getTime());
         return arr;

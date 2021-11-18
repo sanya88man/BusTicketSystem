@@ -37,7 +37,6 @@ public class UsersController {
         if (userService.showUserByUsername(user.getUsername()) != null) {
             return "users/errAddUser";
         }
-
         userService.saveUser(user);
         return "users/registerSuccess";
     }
@@ -53,7 +52,6 @@ public class UsersController {
         if (userService.showUserByUsername(user.getUsername()) == null) {
             return "users/userNotExist";
         }
-
         userService.deleteUser(user.getUsername());
         return "redirect:/admin/users";
     }
@@ -63,7 +61,6 @@ public class UsersController {
         if (userService.showUserByUsername(user.getUsername()) == null) {
             return "users/userNotExist";
         }
-
         userService.addAdmin(user.getUsername());
         return "redirect:/admin/users";
     }
@@ -73,7 +70,6 @@ public class UsersController {
         if (userService.showUserByUsername(user.getUsername()) == null) {
             return "users/userNotExist";
         }
-
         userService.blockUser(user.getUsername());
         return "redirect:/admin/users";
     }
@@ -83,7 +79,6 @@ public class UsersController {
         if (userService.showUserByUsername(user.getUsername()) == null) {
             return "users/userNotExist";
         }
-
         userService.unblockUser(user);
         return "redirect:/admin/users";
     }

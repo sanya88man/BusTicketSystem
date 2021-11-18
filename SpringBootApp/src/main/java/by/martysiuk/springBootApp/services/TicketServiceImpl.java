@@ -45,11 +45,10 @@ public class TicketServiceImpl implements TicketService {
     @Transactional
     @Override
     public List<Ticket> showSeats(String date, int id) {
-        List<Ticket> ticketList = new ArrayList<>();
-
+        List<Ticket> ticketList = new ArrayList<>(20);
         final int SEATS_AMOUNT = 20;
-        int k = 0;
-        int count = 0;
+        int counter = 0;
+        int seatsCount = 0;
 
         for (int i = 0; i < SEATS_AMOUNT; i++) {
             Ticket ticket1 = new Ticket();
@@ -67,13 +66,13 @@ public class TicketServiceImpl implements TicketService {
             }
         }
 
-        while (count != SEATS_AMOUNT) {
-            if (ticketList.get(k).getSeat() == -1) {
-                ticketList.remove(ticketList.get(k));
+        while (seatsCount != SEATS_AMOUNT) {
+            if (ticketList.get(counter).getSeat() == -1) {
+                ticketList.remove(ticketList.get(counter));
             } else {
-                k++;
+                counter++;
             }
-            count++;
+            seatsCount++;
         }
 
         return ticketList;

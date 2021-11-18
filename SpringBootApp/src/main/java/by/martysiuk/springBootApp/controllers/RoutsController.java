@@ -48,7 +48,6 @@ public class RoutsController {
         if (bindingResult.hasErrors()) {
             return "routs/editRout";
         }
-
         routService.updateRout(rout);
         return "redirect:/routs";
     }
@@ -58,7 +57,6 @@ public class RoutsController {
                            GregorianCalendar calendar,
                            SimpleDateFormat simpleDateFormat) {
         String[] arr = routService.showDates(calendar, simpleDateFormat);
-
         model.addAttribute("rout", routService.showRout(id));
         model.addAttribute("id", id);
         model.addAttribute("s1", arr[0]);

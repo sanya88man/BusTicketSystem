@@ -16,7 +16,6 @@ public class UsersController {
         this.userService = userService;
     }
 
-
     @GetMapping("/")
     public String showUsers() {
         return "users/index";

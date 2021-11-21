@@ -137,8 +137,8 @@
         <td th:text="${user.getUsername()}">Username</td>
         <td th:text="${user.getPassword()}">password</td>
         <div th:switch="${user.isEnabled()}">
-          <td th:case="${true}">доступен</td>
-          <td th:case="${false}">заблокирован</td>
+          <td th:case="${true}">Доступен</td>
+          <td th:case="${false}">Заблокирован</td>
           <td th:case="*">none</td>
         </div>
       </tr>

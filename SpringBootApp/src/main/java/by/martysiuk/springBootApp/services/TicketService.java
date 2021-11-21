@@ -3,6 +3,7 @@ package by.martysiuk.springBootApp.services;
 import by.martysiuk.springBootApp.models.Ticket;
 
 import java.util.List;
+import java.util.Set;
 
 public interface TicketService {
     List<Ticket> showTickets();
@@ -13,5 +14,5 @@ public interface TicketService {
 
     void deleteTicket(int id);
 
-    List<Ticket> showSeats(String date, int id);
+    Set<Ticket> showSeats(String date, int id);
 }

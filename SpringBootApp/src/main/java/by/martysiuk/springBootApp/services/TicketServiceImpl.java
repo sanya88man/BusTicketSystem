@@ -6,8 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class TicketServiceImpl implements TicketService {
@@ -44,37 +45,17 @@ public class TicketServiceImpl implements TicketService {
 
     @Transactional
     @Override
-    public List<Ticket> showSeats(String date, int id) {
-        List<Ticket> ticketList = new ArrayList<>(20);
+    public Set<Ticket> showSeats(String date, int id) {
         final int SEATS_AMOUNT = 20;
-        int counter = 0;
-        int seatsCount = 0;
+        Set<Ticket> ticketSet = new HashSet<>(20);
+        List<Ticket> orderedTickets = ticketDao.showSeats(date, id);
 
         for (int i = 0; i < SEATS_AMOUNT; i++) {
-            Ticket ticket1 = new Ticket();
-            ticketList.add(ticket1);
-            ticketList.get(i).setSeat(i + 1);
+            Ticket ticket = new Ticket();
+            ticket.setSeat(i + 1);
+            ticketSet.add(ticket);
         }
-
-        List<Ticket> tickets = ticketDao.showSeats(date, id);
-
-        for (Ticket ticket1 : ticketList) {
-            for (Ticket ticket2 : tickets) {
-                if (ticket1.getSeat() == ticket2.getSeat()) {
-                    ticket1.setSeat(-1);
-                }
-            }
-        }
-
-        while (seatsCount != SEATS_AMOUNT) {
-            if (ticketList.get(counter).getSeat() == -1) {
-                ticketList.remove(ticketList.get(counter));
-            } else {
-                counter++;
-            }
-            seatsCount++;
-        }
-
-        return ticketList;
+        orderedTickets.forEach(ticketSet::remove);
+        return ticketSet;
     }
 }

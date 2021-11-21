@@ -62,7 +62,7 @@
         <div class="m-3">
 
             <div class="form-group row">
-                <label for="name" class="col-4 col-form-label">Маршрут: </label>
+                <label for="name" class="col-4 col-form-label">Название: </label>
                 <div class="col-6">
                     <input type="text" th:field="*{name}" class="form-control" id="name"/>
                     <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">name error</div>

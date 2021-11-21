@@ -10,7 +10,6 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
-
     private final UserDao userDao;
 
     @Autowired
@@ -46,5 +45,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public void addAdmin(String username) {
         userDao.addAdmin(username);
+    }
+
+    @Transactional
+    @Override
+    public void unblockUser(User user) {
+        userDao.unblockUser(user);
+    }
+
+    @Transactional
+    @Override
+    public void blockUser(String username) {
+        userDao.blockUser(username);
     }
 }

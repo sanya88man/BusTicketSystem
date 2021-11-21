@@ -34,6 +34,7 @@
             <div sec:authorize="hasRole('ADMIN')">
               <a class="dropdown-item" href="/admin/tickets">Просмотреть все билеты</a>
               <a class="dropdown-item" href="/admin/users">Управление пользователями</a>
+              <a class="dropdown-item" href="/admin/routs/edit">Редактировать маршруты</a>
             </div>
           </div>
         </li>
@@ -87,6 +88,38 @@
     </form>
   </div>
   </br>
+
+  <div>
+    <form th:action="@{/admin/users/block}" th:method="patch" th:object="${user1}" >
+      <div class="m-3">
+        <div class="form-group row">
+          <label class="col-4 col-form-label">Заблокировать пользователя:</label>
+          <div class="col-4">
+            <input type="text" th:field="*{username}" class="form-control"
+                   required minlength="4" maxlength="20"/>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Подтвердить</button>
+    </form>
+  </div>
+  </br>
+
+  <div>
+    <form th:action="@{/admin/users/unblock}" th:method="patch" th:object="${user1}" >
+      <div class="m-3">
+        <div class="form-group row">
+          <label class="col-4 col-form-label">Разблокировать пользователя:</label>
+          <div class="col-4">
+            <input type="text" th:field="*{username}" class="form-control"
+                   required minlength="4" maxlength="20"/>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Подтвердить</button>
+    </form>
+  </div>
+  </br>
   </br>
 
 
@@ -96,12 +129,18 @@
       <tr>
         <th>Имя Пользователя</th>
         <th>Пароль</th>
+        <th>Статус</th>
       </tr>
       </thead>
       <tbody>
       <tr th:each="user: ${listUsers}">
         <td th:text="${user.getUsername()}">Username</td>
         <td th:text="${user.getPassword()}">password</td>
+        <div th:switch="${user.isEnabled()}">
+          <td th:case="${true}">Доступен</td>
+          <td th:case="${false}">Заблокирован</td>
+          <td th:case="*">none</td>
+        </div>
       </tr>
       </tbody>
     </table>

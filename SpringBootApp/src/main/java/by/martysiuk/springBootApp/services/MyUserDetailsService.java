@@ -18,7 +18,6 @@ import java.util.Set;
 
 @Service("userDetailsService")
 public class MyUserDetailsService implements UserDetailsService {
-
     private final UserService userService;
 
     @Autowired
@@ -38,7 +37,6 @@ public class MyUserDetailsService implements UserDetailsService {
 
         List<GrantedAuthority> authorities =
                 buildUserAuthority(user.getUserRole());
-
         return buildUserForAuthentication(user, authorities);
     }
 

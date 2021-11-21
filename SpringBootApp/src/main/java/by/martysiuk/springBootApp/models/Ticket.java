@@ -1,12 +1,14 @@
 package by.martysiuk.springBootApp.models;
 
 import javax.persistence.*;
+
+import java.util.Objects;
+
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "tickets")
 public class Ticket {
-
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id")
@@ -42,6 +44,19 @@ public class Ticket {
         this.username = username;
         this.rout = rout;
         this.user = user;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Ticket)) return false;
+        Ticket ticket = (Ticket) o;
+        return getSeat() == ticket.getSeat();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getSeat());
     }
 
     public int getSeat() {

@@ -11,7 +11,6 @@ import java.util.List;
 
 @Repository
 public class UserDaoImpl implements UserDao {
-
     private final SessionFactory sessionFactory;
 
     @Autowired
@@ -59,4 +58,17 @@ public class UserDaoImpl implements UserDao {
         sessionFactory.getCurrentSession().persist(userRole);
     }
 
+    @Override
+    public void unblockUser(User user) {
+        user = sessionFactory.getCurrentSession().get(User.class, user.getUsername());
+        user.setEnabled(true);
+        sessionFactory.getCurrentSession().update(user);
+    }
+
+    @Override
+    public void blockUser(String username) {
+        User user = sessionFactory.getCurrentSession().get(User.class, username);
+        user.setEnabled(false);
+        sessionFactory.getCurrentSession().update(user);
+    }
 }

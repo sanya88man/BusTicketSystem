@@ -1,18 +1,15 @@
 package by.martysiuk.springBootApp.models;
 
 import javax.validation.constraints.*;
-
 import javax.persistence.*;
-/*import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;*/
 import java.util.List;
 
 @Entity
 @Table(name = "routs")
 public class Rout {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
 
     @NotEmpty(message = "Rout name should not be empty!")
@@ -36,9 +33,6 @@ public class Rout {
         this.price = price;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -47,7 +41,6 @@ public class Rout {
         this.id = id;
     }
 
-    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -56,7 +49,6 @@ public class Rout {
         this.name = name;
     }
 
-    @Column(name = "price")
     public double getPrice() {
         return price;
     }

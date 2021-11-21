@@ -9,15 +9,22 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 public class User {
-
+    @Id
+    @Column(name = "username", unique = true,
+            nullable = false, length = 45)
     private String username;
 
+    @Column(name = "password",
+            nullable = false, length = 60)
     private String password;
 
+    @Column(name = "enabled", nullable = false)
     private boolean enabled;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private Set<UserRole> userRole = new HashSet<>(0);
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Ticket> ticket = new ArrayList<>();
 
     public void setTicket(List<Ticket> ticket) {
@@ -49,14 +56,10 @@ public class User {
         this.ticket = ticket;
     }
 
-    @Id
-    @Column(name = "username", unique = true,
-            nullable = false, length = 45)
     public String getUsername() {
         return this.username;
     }
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     public List<Ticket> getTicket() {
         return ticket;
     }
@@ -65,8 +68,6 @@ public class User {
         this.username = username;
     }
 
-    @Column(name = "password",
-            nullable = false, length = 60)
     public String getPassword() {
         return this.password;
     }
@@ -75,7 +76,6 @@ public class User {
         this.password = password;
     }
 
-    @Column(name = "enabled", nullable = false)
     public boolean isEnabled() {
         return this.enabled;
     }
@@ -84,7 +84,6 @@ public class User {
         this.enabled = enabled;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     public Set<UserRole> getUserRole() {
         return this.userRole;
     }

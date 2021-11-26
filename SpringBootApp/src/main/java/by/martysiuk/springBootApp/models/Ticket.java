@@ -36,6 +36,10 @@ public class Ticket {
 
     public Ticket() {}
 
+    public Ticket(int seat) {
+        this.seat = seat;
+    }
+
     public Ticket(int id, int seat, String date, int rout_id, String username, Rout rout, User user) {
         this.id = id;
         this.seat = seat;

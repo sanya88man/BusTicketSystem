@@ -51,9 +51,7 @@ public class TicketServiceImpl implements TicketService {
         List<Ticket> orderedTickets = ticketDao.showSeats(date, id);
 
         for (int i = 0; i < SEATS_AMOUNT; i++) {
-            Ticket ticket = new Ticket();
-            ticket.setSeat(i + 1);
-            ticketSet.add(ticket);
+            ticketSet.add(new Ticket(i + 1));
         }
         orderedTickets.forEach(ticketSet::remove);
         return ticketSet;

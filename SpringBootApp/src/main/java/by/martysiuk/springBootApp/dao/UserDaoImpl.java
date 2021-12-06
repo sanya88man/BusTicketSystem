@@ -71,4 +71,9 @@ public class UserDaoImpl implements UserDao {
         user.setEnabled(false);
         sessionFactory.getCurrentSession().update(user);
     }
+
+    @Override
+    public List<UserRole> showRoles() {
+        return sessionFactory.getCurrentSession().createQuery("from UserRole ").list();
+    }
 }

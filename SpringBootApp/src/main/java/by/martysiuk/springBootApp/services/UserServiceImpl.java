@@ -2,6 +2,7 @@ package by.martysiuk.springBootApp.services;
 
 import by.martysiuk.springBootApp.dao.UserDao;
 import by.martysiuk.springBootApp.models.User;
+import by.martysiuk.springBootApp.models.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,5 +58,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public void blockUser(String username) {
         userDao.blockUser(username);
+    }
+
+    @Transactional
+    @Override
+    public List<UserRole> showRoles() {
+        return userDao.showRoles();
     }
 }

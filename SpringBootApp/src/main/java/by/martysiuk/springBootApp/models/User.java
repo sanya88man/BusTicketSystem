@@ -57,7 +57,7 @@ public class User {
     }
 
     public String getUsername() {
-        return this.username;
+        return username;
     }
 
     public List<Ticket> getTicket() {
@@ -69,7 +69,7 @@ public class User {
     }
 
     public String getPassword() {
-        return this.password;
+        return password;
     }
 
     public void setPassword(String password) {
@@ -77,7 +77,7 @@ public class User {
     }
 
     public boolean isEnabled() {
-        return this.enabled;
+        return enabled;
     }
 
     public void setEnabled(boolean enabled) {
@@ -85,7 +85,7 @@ public class User {
     }
 
     public Set<UserRole> getUserRole() {
-        return this.userRole;
+        return userRole;
     }
 
     public void setUserRole(Set<UserRole> userRole) {

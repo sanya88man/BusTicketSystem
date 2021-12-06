@@ -1,6 +1,7 @@
 package by.martysiuk.springBootApp.dao;
 
 import by.martysiuk.springBootApp.models.User;
+import by.martysiuk.springBootApp.models.UserRole;
 
 import java.util.List;
 
@@ -18,4 +19,6 @@ public interface UserDao {
     void unblockUser(User user);
 
     void blockUser(String username);
+
+    List<UserRole> showRoles();
 }

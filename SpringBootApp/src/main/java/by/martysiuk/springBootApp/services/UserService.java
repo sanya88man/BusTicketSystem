@@ -1,6 +1,7 @@
 package by.martysiuk.springBootApp.services;
 
 import by.martysiuk.springBootApp.models.User;
+import by.martysiuk.springBootApp.models.UserRole;
 
 import java.util.List;
 
@@ -18,4 +19,6 @@ public interface UserService {
     void unblockUser(User user);
 
     void blockUser(String username);
+
+    List<UserRole> showRoles();
 }

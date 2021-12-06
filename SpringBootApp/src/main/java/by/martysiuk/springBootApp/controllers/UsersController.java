@@ -43,6 +43,7 @@ public class UsersController {
     @GetMapping("/admin/users")
     public String showUsers(Model model, @ModelAttribute("user1") User user) {
         model.addAttribute("listUsers", userService.showUsers());
+        model.addAttribute("listRoles", userService.showRoles());
         return "users/showUsers";
     }
 

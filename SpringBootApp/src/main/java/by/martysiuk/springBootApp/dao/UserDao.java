@@ -8,7 +8,7 @@ import java.util.List;
 public interface UserDao {
     User showUserByUsername(String username);
 
-    void saveUser(User user);
+    void saveUser(User user, UserRole userRole);
 
     List<User> showUsers();
 

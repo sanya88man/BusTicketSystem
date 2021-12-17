@@ -27,8 +27,10 @@ public class RoutServiceImpl implements RoutService {
     }
 
     @Override
-    public String[] showDates(GregorianCalendar calendar,
-                              SimpleDateFormat simpleDateFormat) {
+    public String[] showDates() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
+        GregorianCalendar calendar = new GregorianCalendar();
+
         String[] arr = new String[3];
         simpleDateFormat.applyPattern("dd-MM-yyyy");
 

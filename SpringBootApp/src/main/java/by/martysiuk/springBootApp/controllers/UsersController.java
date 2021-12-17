@@ -17,7 +17,7 @@ public class UsersController {
     }
 
     @GetMapping("/")
-    public String showUsers() {
+    public String index() {
         return "users/index";
     }
 
@@ -41,14 +41,14 @@ public class UsersController {
     }
 
     @GetMapping("/admin/users")
-    public String showUsers(Model model, @ModelAttribute("user1") User user) {
+    public String showUsers(Model model, @ModelAttribute("user") User user) {
         model.addAttribute("listUsers", userService.showUsers());
         model.addAttribute("listRoles", userService.showRoles());
         return "users/showUsers";
     }
 
     @DeleteMapping("/admin/users/delete")
-    public String deleteUser(@ModelAttribute("user1") User user) {
+    public String deleteUser(@ModelAttribute("user") User user) {
         if (userService.showUserByUsername(user.getUsername()) == null) {
             return "users/userNotExist";
         }
@@ -57,7 +57,7 @@ public class UsersController {
     }
 
     @PostMapping("admin/users/newAdmin")
-    public String addAdmin(@ModelAttribute("user1") User user) {
+    public String addAdmin(@ModelAttribute("user") User user) {
         if (userService.showUserByUsername(user.getUsername()) == null) {
             return "users/userNotExist";
         }
@@ -66,7 +66,7 @@ public class UsersController {
     }
 
     @PatchMapping("admin/users/block")
-    public String blockUser(@ModelAttribute("user1") User user) {
+    public String blockUser(@ModelAttribute("user") User user) {
         if (userService.showUserByUsername(user.getUsername()) == null) {
             return "users/userNotExist";
         }
@@ -75,7 +75,7 @@ public class UsersController {
     }
 
     @PatchMapping("admin/users/unblock")
-    public String unblockUser(@ModelAttribute("user1") User user) {
+    public String unblockUser(@ModelAttribute("user") User user) {
         if (userService.showUserByUsername(user.getUsername()) == null) {
             return "users/userNotExist";
         }

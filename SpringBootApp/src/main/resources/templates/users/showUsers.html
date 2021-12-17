@@ -58,7 +58,7 @@
   </br>
 
   <div>
-    <form th:action="@{/admin/users/delete}" th:method="delete" th:object="${user1}" >
+    <form th:action="@{/admin/users/delete}" th:method="delete" th:object="${user}" >
       <div class="m-3">
         <div class="form-group row">
           <label class="col-4 col-form-label">Введите имя пользователя для удаления:</label>
@@ -74,7 +74,7 @@
   </br>
 
   <div>
-    <form th:action="@{/admin/users/newAdmin}" th:method="post" th:object="${user1}" >
+    <form th:action="@{/admin/users/newAdmin}" th:method="post" th:object="${user}" >
       <div class="m-3">
         <div class="form-group row">
           <label class="col-4 col-form-label">Назначить администратором пользователя:</label>
@@ -90,7 +90,7 @@
   </br>
 
   <div>
-    <form th:action="@{/admin/users/block}" th:method="patch" th:object="${user1}" >
+    <form th:action="@{/admin/users/block}" th:method="patch" th:object="${user}" >
       <div class="m-3">
         <div class="form-group row">
           <label class="col-4 col-form-label">Заблокировать пользователя:</label>
@@ -106,7 +106,7 @@
   </br>
 
   <div>
-    <form th:action="@{/admin/users/unblock}" th:method="patch" th:object="${user1}" >
+    <form th:action="@{/admin/users/unblock}" th:method="patch" th:object="${user}" >
       <div class="m-3">
         <div class="form-group row">
           <label class="col-4 col-form-label">Разблокировать пользователя:</label>

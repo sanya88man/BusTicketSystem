@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.validation.Valid;
-import java.text.SimpleDateFormat;
-import java.util.GregorianCalendar;
 
 @Controller
 public class RoutsController {
@@ -53,10 +51,8 @@ public class RoutsController {
     }
 
     @GetMapping("/user/routs/{id}")
-    public String showRout(@PathVariable("id") int id, Model model,
-                           GregorianCalendar calendar,
-                           SimpleDateFormat simpleDateFormat) {
-        String[] arr = routService.showDates(calendar, simpleDateFormat);
+    public String showRout(@PathVariable("id") int id, Model model) {
+        String[] arr = routService.showDates();
         model.addAttribute("rout", routService.showRout(id));
         model.addAttribute("id", id);
         model.addAttribute("s1", arr[0]);

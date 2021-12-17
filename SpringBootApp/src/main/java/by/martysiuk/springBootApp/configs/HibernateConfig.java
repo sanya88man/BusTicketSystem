@@ -17,10 +17,10 @@ import java.util.Properties;
 @ComponentScan(basePackages = "by.martysiuk.springBootApp")
 @EnableTransactionManagement
 public class HibernateConfig {
-    private Environment environment;
+    private final Environment environment;
 
     @Autowired
-    public void setEnvironment(Environment environment) {
+    public HibernateConfig(Environment environment) {
         this.environment = environment;
     }
 

@@ -36,9 +36,9 @@ public class TicketDaoImpl implements TicketDao {
     @SuppressWarnings("unchecked")
     @Override
     public List<Ticket> showTicketsByUsername(String username) {
-        String hql = "FROM Ticket where username = :paramName";
+        String hql = "from Ticket where username = :username";
         Query query = sessionFactory.getCurrentSession().createQuery(hql);
-        query.setParameter("paramName", username);
+        query.setParameter("username", username);
         return query.list();
     }
 
@@ -49,7 +49,7 @@ public class TicketDaoImpl implements TicketDao {
 
     @Override
     public void deleteTicket(int id) {
-        String hql = "DELETE Ticket WHERE id = :id";
+        String hql = "delete Ticket where id = :id";
         Query query = sessionFactory.getCurrentSession().createQuery(hql);
         query.setParameter("id", id);
         query.executeUpdate();

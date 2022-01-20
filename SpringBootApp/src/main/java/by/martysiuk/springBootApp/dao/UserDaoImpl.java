@@ -4,7 +4,6 @@ import by.martysiuk.springBootApp.models.User;
 import by.martysiuk.springBootApp.models.UserRole;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -24,17 +23,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void saveUser(User user) {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String encodedPassword = passwordEncoder.encode(user.getPassword());
-
-        UserRole userRole = new UserRole();
-        userRole.setUser(user);
-        userRole.setRole("ROLE_USER");
-
-        user.setPassword(encodedPassword);
-        user.setEnabled(true);
-
+    public void saveUser(User user, UserRole userRole) {
         sessionFactory.getCurrentSession().persist(user);
         sessionFactory.getCurrentSession().persist(userRole);
     }
@@ -70,5 +59,11 @@ public class UserDaoImpl implements UserDao {
         User user = sessionFactory.getCurrentSession().get(User.class, username);
         user.setEnabled(false);
         sessionFactory.getCurrentSession().update(user);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<UserRole> showRoles() {
+        return sessionFactory.getCurrentSession().createQuery("from UserRole ").list();
     }
 }

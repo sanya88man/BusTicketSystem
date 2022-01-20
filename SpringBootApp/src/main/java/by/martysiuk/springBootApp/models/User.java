@@ -15,7 +15,7 @@ public class User {
     private String username;
 
     @Column(name = "password",
-            nullable = false, length = 60)
+            nullable = false, length = 80)
     private String password;
 
     @Column(name = "enabled", nullable = false)
@@ -25,10 +25,10 @@ public class User {
     private Set<UserRole> userRole = new HashSet<>(0);
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<Ticket> ticket = new ArrayList<>();
+    private List<Ticket> tickets = new ArrayList<>();
 
-    public void setTicket(List<Ticket> ticket) {
-        this.ticket = ticket;
+    public void setTickets(List<Ticket> ticket) {
+        this.tickets = ticket;
     }
 
     public User() {}
@@ -48,20 +48,20 @@ public class User {
     }
 
     public User(String username, String password,
-                boolean enabled, Set<UserRole> userRole, List<Ticket> ticket) {
+                boolean enabled, Set<UserRole> userRole, List<Ticket> tickets) {
         this.username = username;
         this.password = password;
         this.enabled = enabled;
         this.userRole = userRole;
-        this.ticket = ticket;
+        this.tickets = tickets;
     }
 
     public String getUsername() {
-        return this.username;
+        return username;
     }
 
-    public List<Ticket> getTicket() {
-        return ticket;
+    public List<Ticket> getTickets() {
+        return tickets;
     }
 
     public void setUsername(String username) {
@@ -69,7 +69,7 @@ public class User {
     }
 
     public String getPassword() {
-        return this.password;
+        return password;
     }
 
     public void setPassword(String password) {
@@ -77,7 +77,7 @@ public class User {
     }
 
     public boolean isEnabled() {
-        return this.enabled;
+        return enabled;
     }
 
     public void setEnabled(boolean enabled) {
@@ -85,7 +85,7 @@ public class User {
     }
 
     public Set<UserRole> getUserRole() {
-        return this.userRole;
+        return userRole;
     }
 
     public void setUserRole(Set<UserRole> userRole) {

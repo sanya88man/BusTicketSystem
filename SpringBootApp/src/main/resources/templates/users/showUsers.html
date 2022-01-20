@@ -58,7 +58,7 @@
   </br>
 
   <div>
-    <form th:action="@{/admin/users/delete}" th:method="delete" th:object="${user1}" >
+    <form th:action="@{/admin/users/delete}" th:method="delete" th:object="${user}" >
       <div class="m-3">
         <div class="form-group row">
           <label class="col-4 col-form-label">Введите имя пользователя для удаления:</label>
@@ -68,13 +68,13 @@
           </div>
         </div>
       </div>
-      <button type="submit" class="btn btn-primary">Удалить</button>
+      <button type="submit" class="btn btn-danger">Удалить</button>
     </form>
   </div>
   </br>
 
   <div>
-    <form th:action="@{/admin/users/newAdmin}" th:method="post" th:object="${user1}" >
+    <form th:action="@{/admin/users/newAdmin}" th:method="post" th:object="${user}" >
       <div class="m-3">
         <div class="form-group row">
           <label class="col-4 col-form-label">Назначить администратором пользователя:</label>
@@ -90,7 +90,7 @@
   </br>
 
   <div>
-    <form th:action="@{/admin/users/block}" th:method="patch" th:object="${user1}" >
+    <form th:action="@{/admin/users/block}" th:method="patch" th:object="${user}" >
       <div class="m-3">
         <div class="form-group row">
           <label class="col-4 col-form-label">Заблокировать пользователя:</label>
@@ -100,13 +100,13 @@
           </div>
         </div>
       </div>
-      <button type="submit" class="btn btn-primary">Подтвердить</button>
+      <button type="submit" class="btn btn-warning">Подтвердить</button>
     </form>
   </div>
   </br>
 
   <div>
-    <form th:action="@{/admin/users/unblock}" th:method="patch" th:object="${user1}" >
+    <form th:action="@{/admin/users/unblock}" th:method="patch" th:object="${user}" >
       <div class="m-3">
         <div class="form-group row">
           <label class="col-4 col-form-label">Разблокировать пользователя:</label>
@@ -116,7 +116,7 @@
           </div>
         </div>
       </div>
-      <button type="submit" class="btn btn-primary">Подтвердить</button>
+      <button type="submit" class="btn btn-success">Подтвердить</button>
     </form>
   </div>
   </br>
@@ -146,7 +146,29 @@
     </table>
   </div>
   </br>
+  </br>
+  </br>
 
+
+  <div style="width: 600px; margin-left: auto; margin-right: auto">
+    <table class="table table-striped table-bordered">
+      <thead class="thead-dark">
+      <tr>
+        <th>Имя Пользователя</th>
+        <th>Роль</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="role: ${listRoles}">
+        <td th:text="${role.getUser().getUsername()}">Username</td>
+        <td th:text="${role.getRole()}">Role</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  </br>
+  </br>
+  </br>
 
 
 </div>

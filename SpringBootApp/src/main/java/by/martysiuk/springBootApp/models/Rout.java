@@ -2,6 +2,7 @@ package by.martysiuk.springBootApp.models;
 
 import javax.validation.constraints.*;
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -23,7 +24,7 @@ public class Rout {
     private double price;
 
     @OneToMany(mappedBy = "rout", fetch = FetchType.LAZY)
-    private List<Ticket> ticketList;
+    private List<Ticket> ticketList = new ArrayList<>();
 
     public Rout() {}
 
